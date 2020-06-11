@@ -53,10 +53,10 @@ In our code, we use codenames: the SqueezeFlow converter is named after Blow: `b
 Suggested steps are:
 
 1. Clone repository.
-1. Create a conda environment (you can use the `environment.yml` file).
+1. Create a conda environment (you can use the `environment.yml` file): 
 `conda env create -n test -f environment.yml`
-1. `conda activate test; pip install tensorflow; pip install tensorboardX`
-1. Install [Apex]
+1. `conda activate test; pip install torch==1.4.0; pip install tensorflow; pip install tensorboardX`
+1. Install [Apex]. Note that we use version `5754fa7a961b4b6dd7651436bd29dd5712bc134f`.
 ```1
    cd ../
    git clone https://www.github.com/nvidia/apex
@@ -92,8 +92,8 @@ mkdir VCTK_22kHz_98
     - `SqueezeFlow-V-VCTK`, vocoder trained on full VCTK
 
 1. Inference for Seen speakers:
-`python3 synthesize.py --base_fn_model=SqueezeFlow-C-108 --path_out=SqueezeFlow-C-108/out --sw_path=SqueezeFlow-V-VCTK --convert`
-
+`python3 synthesize.py --path_data=../VCTK_22kHz_108 --base_fn_model=SqueezeFlow-C-108 --path_out=SqueezeFlow-C-108/out --sw_path=SqueezeFlow-V-VCTK --convert`
+    - Make sure your output path exists
 1. Inference for Unseen speakers:
 `python3 synthesize_unseen.py --path_data_root=[parent folder of VCTK_22kHz_10 and VCTK_22kHz_98] --adapted_base_fn_model=SqueezeFlow-C-10 --trained_base_fn_model=SqueezeFlow-C-98 --path_out=[your output path] --sw_path=SqueezeFlow-V-VCTK --convert`
 
@@ -111,9 +111,8 @@ mkdir VCTK_22kHz_98
 #### Converter: Seen (full VCTK)
 
 1. `cd blow-mel/src`
-1. Start training: `python train.py --path_data=VCTK_22kHz_108 --base_fn_out=[your checkpoint path + experiment name] --model=blow --sw_path=[your best vocoder checkpoint]`
-    - add `--multigpu` if using multi-gpu
-1. Generate results using SqueezeWave vocoder: `python3 synthesize.py --base_fn_model=[your checkpoint path + experiment name] --path_out=[your output path] --sw_path=[your best vocoder checkpoint] --convert`
+1. Start training: `python train.py --path_data=VCTK_22kHz_108 --base_fn_out=[your checkpoint path + experiment name] --model=blow --sw_path=[your best vocoder checkpoint] --multigpu`
+1. Generate results using SqueezeWave vocoder: `python3 synthesize.py --path_data=../VCTK_22kHz_108 --base_fn_model=[your checkpoint path + experiment name] --path_out=[your output path] --sw_path=[your best vocoder checkpoint] --convert`
     - Best converter checkpoint is automatically save to `[your checkpoint path + experiment name]` when training
     - This step saves both the converted mel-spectrogram (as `*.pt`) and that mel-spectrogram turned into speech (using SqueezeWave)
 1. To generate results using WaveGlow, clone your [WaveGlow] repository, go into its corresponding folder, and run `python3 inference.py -f <(ls [your SqueezeWave output path]/*.pt) -w waveglow_256channels_ljs_v3.pt -o [your WaveGlow output path] --is_fp16 -s 0.6`
@@ -129,6 +128,10 @@ mkdir VCTK_22kHz_98
 
 
 ## Reproducing Table 2 ([LJ Speech Data])
+
+All the below scripts are run in `SqueezeWave` folder, instead of `SqueezeWave-adaptive`.
+
+`cd SqueezeWave`
 
 ### Generate audio with our pretrained model 
 

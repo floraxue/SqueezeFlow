@@ -1,5 +1,5 @@
 import sys,argparse,os,time
-import librosa,pysptk
+import librosa
 import numpy as np
 import torch
 

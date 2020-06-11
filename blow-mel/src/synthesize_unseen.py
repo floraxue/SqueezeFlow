@@ -157,7 +157,7 @@ print('-' * 100)
 
 # Data
 print('Load VCTK_22kHz_adapt test split speakers')
-adapt_data_path = os.path.join(args.path_data_root, 'VCTK_22kHz_adapt')
+adapt_data_path = os.path.join(args.path_data_root, 'VCTK_22kHz_10')
 dataset = datain.DataSet(adapt_data_path, pars.lchunk, pars.stride,
                          sampling_rate=pars.sr, split='test',
                          seed=pars.seed, do_audio_load=False)
@@ -168,7 +168,7 @@ print(lspeakers)
 
 # Input data
 print('Load VCTK_22kHz_train test split audio')
-train_data_path = os.path.join(args.path_data_root, 'VCTK_22kHz_train')
+train_data_path = os.path.join(args.path_data_root, 'VCTK_22kHz_98')
 dataset = datain.DataSet(train_data_path, args.lchunk, args.stride,
                          sampling_rate=pars.sr, split='test',
                          trim=args.trim,

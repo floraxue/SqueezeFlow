@@ -1,6 +1,6 @@
 import sys
 import torch
-from utils.SqueezeWave.stft import STFT
+from stft import STFT
 
 
 class Denoiser(torch.nn.Module):
@@ -15,8 +15,8 @@ class Denoiser(torch.nn.Module):
         if mode == 'zeros':
             mel_input = torch.zeros(
                 (1, 80, 88),
-                dtype=squeezewave.WN[0].start.weight.dtype,
-                device=squeezewave.WN[0].start.weight.device)
+                dtype=squeezewave.upsample.weight.dtype,
+                device=squeezewave.upsample.weight.device)
         elif mode == 'normal':
             mel_input = torch.randn(
                 (1, 80, 88),
@@ -33,8 +33,6 @@ class Denoiser(torch.nn.Module):
 
     def forward(self, audio, strength=0.1):
         audio_spec, audio_angles = self.stft.transform(audio.cuda().float())
-        audio_spec = audio_spec.cuda()
-        audio_angles = audio_angles.cuda()
         audio_spec_denoised = audio_spec - self.bias_spec * strength
         audio_spec_denoised = torch.clamp(audio_spec_denoised, 0.0)
         audio_denoised = self.stft.inverse(audio_spec_denoised, audio_angles)

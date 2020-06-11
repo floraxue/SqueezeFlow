@@ -1,6 +1,6 @@
 {
     "train_config": {
-        "fp16_run": true,
+        "fp16_run": false,
         "output_directory": "checkpoints",
         "epochs": 100000,
         "learning_rate": 4e-4,

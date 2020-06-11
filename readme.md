@@ -46,7 +46,7 @@ Table 2:
 
 # Reproduction
 
-In our code, we use codenames: the SqueezeFlow converter is named after Blow: "blow-mel", and the SqueezeFlow vocoder is called "SqueezeWave". Corresponding code are in their respective folders.
+In our code, we use codenames: the SqueezeFlow converter is named after Blow: `blow-mel`, and the SqueezeFlow vocoder is called `SqueezeWave`. Corresponding code are in their respective folders.
 
 ## Installation
 
@@ -73,9 +73,7 @@ Download the [VCTK] dataset.
 ```
 python preprocess.py --path_in=../VCTK/wav48 --extension=.wav --path_out=../VCTK_22kHz --sr=22050
 ```
-Our code expects audio filenames to be in the form `<speaker/class_id>_<utterance/track_id>_whatever.extension`, 
-where elements inside `<>` do not contain the character `_` and IDs need not to be consecutive (example: `s001_u045_xxx.wav`). 
-Therefore, if your data is not in this format, you should run or adapt the script `misc/rename_dataset.py`.
+    - Our code expects audio filenames to be in the form `<speaker/class_id>_<utterance/track_id>_whatever.extension`, where elements inside `<>` do not contain the character `_` and IDs need not to be consecutive (example: `s001_u045_xxx.wav`). Therefore, if your data is not in this format, you should run or adapt the script `misc/rename_dataset.py`.
 
 1. Prepare the VCTK dataset for seen/unseen speakers: 
 ```
@@ -83,7 +81,7 @@ mv VCTK_22kHz VCTK_22kHz_108
 mkdir VCTK_22kHz_10
 mkdir VCTK_22kHz_98
 ```
-To use the same unseen speakers as us, copy folders `p236  p245  p251  p259  p264  p283  p288  p293  p298  p360` to `VCTK_22kHz_10` and others to `VCTK_22kHz_98`. Otherwise, randomly choose 10 speakers to be excluded from the dataset.
+    - To use the same unseen speakers as us, copy folders `p236  p245  p251  p259  p264  p283  p288  p293  p298  p360` to `VCTK_22kHz_10` and others to `VCTK_22kHz_98`. Otherwise, randomly choose 10 speakers to be excluded from the dataset.
 
 ### Generate audio with our pretrained model
 
@@ -185,6 +183,7 @@ To use the same unseen speakers as us, copy folders `p236  p245  p251  p259  p26
 
 
 [pretrained vocoders]: https://drive.google.com/file/d/1RyVMLY2l8JJGq_dCEAAd8rIRIn_k13UB/view?usp=sharing
+[pretrained models]: https://drive.google.com/drive/folders/1mskxbnMT-jgtXRBCMbky4X5sAO8VpGvs?usp=sharing
 [mel-spectrograms]: https://drive.google.com/file/d/1g_VXK2lpP9J25dQFhQwx7doWl_p20fXA/view?usp=sharing
 [LJ Speech Data]: https://keithito.com/LJ-Speech-Dataset
 [Apex]: https://github.com/nvidia/apex

@@ -180,7 +180,7 @@ def main():
                         help='(default=%(default)s)')
     parser.add_argument('--force_target_speaker', default='', type=str,
                         required=False, help='(default=%(default)s)')
-    parser.add_argument('--sw_path', default='/work/xuezhenruo/blow-mel/res/L128_large_pretrain',
+    parser.add_argument('--sw_path', default='/work/x/blow-mel/res/L128_large_pretrain',
                         type=str, required=False, help='(default=%(default)d)')
     parser.add_argument('--sbatch', default=256, type=int, required=False,
                         help='(default=%(default)d)')

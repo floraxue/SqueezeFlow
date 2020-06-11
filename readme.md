@@ -19,9 +19,9 @@ Audio examples: https://low-cost-adaptive-tts.github.io/SqueezeFlow-Demo
 
 Our SqueezeFlow (SF) model can achieve an audio naturalness (MOS) and similarity scores as below. GT is ground truth audio, Blow is our baseline which uses ground truth audio for voice conversion, SF is our model which converts and generates audio from mel-spectrograms, SF+WG is a model for abelation which uses SF for convertion and WaveGlow for audio generation. Seen and Unseen refers to the target speaker being seen or unseen during training. For details on our evaluation, please refer to our paper.
 
-Table 1:
+Table 1 （Similarity to Source - the lower the better; Similarity to Target - the higher the better）:
 
-| Model                 |    MOS    | Sim. to Source | Sim. to Target  |
+| Model                 |    MOS    | Similarity to Source | Similarity to Target  |
 | ---------------       | --------- | --------- | ----- |
 | GT (target)           | 4.28±0.05 | 13.98% | 82.86%   |
 | Blow, Seen            | 2.85±0.06 | 18.3%  | 36.5%    |
@@ -53,8 +53,9 @@ In our code, we use codenames: the SqueezeFlow converter is named after Blow: `b
 Suggested steps are:
 
 1. Clone repository.
-1. Create a conda environment (you can use the `env_no_builds_hist.yml` file).
-1. `conda activate blow; pip install tensorflow; pip install tensorboardX`
+1. Create a conda environment (you can use the `environment.yml` file).
+`conda env create -n test -f environment.yml`
+1. `conda activate test; pip install tensorflow; pip install tensorboardX`
 1. Install [Apex]
 ```1
    cd ../
@@ -69,18 +70,17 @@ Suggested steps are:
 
 Download the [VCTK] dataset. 
 
+1. `cd blow-mel/src`
 1. To preprocess the audio files for VCTK:
-```
-python preprocess.py --path_in=../VCTK/wav48 --extension=.wav --path_out=../VCTK_22kHz --sr=22050
-```
+`python preprocess.py --path_in=../VCTK/wav48 --extension=.wav --path_out=../VCTK_22kHz --sr=22050`
     - Our code expects audio filenames to be in the form `<speaker/class_id>_<utterance/track_id>_whatever.extension`, where elements inside `<>` do not contain the character `_` and IDs need not to be consecutive (example: `s001_u045_xxx.wav`). Therefore, if your data is not in this format, you should run or adapt the script `misc/rename_dataset.py`.
 
 1. Prepare the VCTK dataset for seen/unseen speakers: 
-```
+`
 mv VCTK_22kHz VCTK_22kHz_108
 mkdir VCTK_22kHz_10
 mkdir VCTK_22kHz_98
-```
+`
     - To use the same unseen speakers as us, copy folders `p236  p245  p251  p259  p264  p283  p288  p293  p298  p360` to `VCTK_22kHz_10` and others to `VCTK_22kHz_98`. Otherwise, randomly choose 10 speakers to be excluded from the dataset.
 
 ### Generate audio with our pretrained model

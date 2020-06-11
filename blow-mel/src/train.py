@@ -74,7 +74,7 @@ parser.add_argument('--ncha', default=480, type=int, required=False,
 # --- Results
 parser.add_argument('--base_fn_out', default='', type=str, required=True,
                     help='(default=%(default)s)')
-parser.add_argument('--sw_path', default='/work/xuezhenruo/blow-mel/res/L128_large_pretrain',
+parser.add_argument('--sw_path', default='/work/x/blow-mel/res/L128_large_pretrain',
                     type=str, required=False, help='(default=%(default)d)')
 
 ########################################################################################################################

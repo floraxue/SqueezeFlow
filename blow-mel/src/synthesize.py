@@ -25,6 +25,8 @@ parser.add_argument('--seed', default=0, type=int, required=False,
 parser.add_argument('--device', default='cuda', type=str, required=False,
                     help='(default=%(default)s)')
 # Data
+parser.add_argument('--path_data', default='../res/', type=str, required=True,
+                    help='(default=%(default)s)')
 parser.add_argument('--trim', default=-1, type=float, required=False,
                     help='(default=%(default)f)')
 parser.add_argument('--base_fn_model', default='', type=str, required=True,
@@ -57,7 +59,7 @@ parser.add_argument('--stride', default=-1, type=int, required=False,
 parser.add_argument('--synth_nonorm', action='store_true')
 parser.add_argument('--maxfiles', default=10000000, type=int, required=False,
                     help='(default=%(default)d)')
-parser.add_argument('--sw_path', default='/work/xuezhenruo/blow-mel/res/L128_large_pretrain',
+parser.add_argument('--sw_path', default='/work/x/blow-mel/res/L128_large_pretrain',
                     type=str, required=False, help='(default=%(default)d)')
 
 # Process arguments
@@ -163,7 +165,7 @@ def compute_speaker_averages(speakers, trim=5 * 60):
     select_speaker = None
     if args.force_source_speaker is not None and args.force_target_speaker is not None:
         select_speaker = args.force_source_speaker + ',' + args.force_target_speaker
-    dataset = datain.DataSet(pars.path_data, args.lchunk, args.lchunk,
+    dataset = datain.DataSet(args.path_data, args.lchunk, args.lchunk,
                              sampling_rate=pars.sr, split='train+valid',
                              trim=trim,
                              select_speaker=select_speaker,
@@ -199,7 +201,7 @@ def compute_speaker_averages(speakers, trim=5 * 60):
 
 # Data
 print('Load metadata')
-dataset = datain.DataSet(pars.path_data, pars.lchunk, pars.stride,
+dataset = datain.DataSet(args.path_data, pars.lchunk, pars.stride,
                          sampling_rate=pars.sr, split='train+valid',
                          seed=pars.seed, do_audio_load=False)
 speakers = deepcopy(dataset.speakers)
@@ -209,7 +211,7 @@ if args.zavg:
 
 # Input data
 print('Load', args.split, 'audio')
-dataset = datain.DataSet(pars.path_data, args.lchunk, args.stride,
+dataset = datain.DataSet(args.path_data, args.lchunk, args.stride,
                          sampling_rate=pars.sr, split=args.split,
                          trim=args.trim, frame_energy_thres=0.025,
                          select_speaker=args.force_source_speaker,
@@ -332,7 +334,7 @@ try:
             # # Vocoder Inference
             # pdb.set_trace()
             # x = vocoder.infer(mel=x,
-            #                   squeezewave_path='/rscratch/xuezhenruo/blow-mel/res/L128_large_pretrain')
+            #                   squeezewave_path='/rscratch/x/blow-mel/res/L128_large_pretrain')
             # x = x.cpu()
 
             # Append audio

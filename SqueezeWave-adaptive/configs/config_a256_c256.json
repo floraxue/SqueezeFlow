@@ -1,18 +1,18 @@
 {
     "train_config": {
         "fp16_run": true,
-        "output_directory": "/rscratch/xuezhenruo/sw_ckpt/sw_vctk_200601_resume",
+        "output_directory": "/rscratch/x/sw_ckpt/sw_vctk_200601_resume",
         "epochs": 100000,
         "learning_rate": 4e-4,
         "sigma": 1.0,
         "iters_per_checkpoint": 2000,
         "batch_size": 192,
         "seed": 1234,
-        "checkpoint_path": "/rscratch/xuezhenruo/sw_ckpt/sw_vctk_200601/SqueezeWave_102000",
+        "checkpoint_path": "/rscratch/x/sw_ckpt/sw_vctk_200601/SqueezeWave_102000",
         "with_tensorboard": true
     },
     "data_config": {
-        "path_in": "/rscratch/xuezhenruo/multi_speaker_dataset/VCTK_22kHz",
+        "path_in": "/rscratch/x/multi_speaker_dataset/VCTK_22kHz",
         "split":"train",
         "segment_length": 16384,
         "sampling_rate": 22050,

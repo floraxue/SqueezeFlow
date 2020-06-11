@@ -61,7 +61,7 @@ parser.add_argument('--stride', default=-1, type=int, required=False,
 parser.add_argument('--synth_nonorm', action='store_true')
 parser.add_argument('--maxfiles', default=10000000, type=int, required=False,
                     help='(default=%(default)d)')
-parser.add_argument('--sw_path', default='/work/xuezhenruo/blow-mel/res/L128_large_pretrain',
+parser.add_argument('--sw_path', default='/work/x/blow-mel/res/L128_large_pretrain',
                     type=str, required=False, help='(default=%(default)d)')
 
 # Process arguments
